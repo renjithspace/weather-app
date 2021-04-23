@@ -3,6 +3,7 @@ import { Provider as StateProvider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core'
 import store from '../../store'
+import Alert from '../Alert/Alert'
 
 interface ProviderProps {
   children: ReactNode
@@ -19,6 +20,7 @@ export default function Provider (props: ProviderProps) {
     <StateProvider store={store}>
       <ThemeProvider theme={theme}>
         {props.children}
+        <Alert />
       </ThemeProvider>
     </StateProvider>
   )

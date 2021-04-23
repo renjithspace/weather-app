@@ -1,4 +1,5 @@
 import axios, { CancelTokenSource } from 'axios'
+import StateService from './State.service'
 
 export default class RequestService {
   private source: CancelTokenSource
@@ -18,9 +19,8 @@ export default class RequestService {
       return response.data
     } catch (error) {
       const { response } = error
-      const message = response ? response.data : error.message
-      alert(message)
-      return null
+      const message = response ? response.data.message : error.message
+      StateService.replaceAlertMessage(message)
     }
   }
 }
