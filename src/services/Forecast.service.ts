@@ -29,7 +29,7 @@ export default class ForecastService {
     const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY
     const location = process.env.REACT_APP_OPENWEATHER_LOCATION
     const days = 40
-    const url = `${endpoint}?q=${location}&APPID=${apiKey}&cnt=${days}`
+    const url = `${endpoint}?q=${location}&APPID=${apiKey}&cnt=${days}&units=imperial`
     const request = new RequestService()
     const response = await request.get(url)
     return [response, request.cancel]
