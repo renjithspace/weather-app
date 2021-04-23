@@ -1,13 +1,17 @@
 import { AnyAction } from 'redux'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 import { ForecastList } from './services/Forecast.service'
 
-export interface AppState {
+interface AppState {
   forecasts: ForecastList
 }
 
 export interface AppActions {
   replaceForecasts (forecasts: ForecastList): AnyAction
+}
+
+export interface AppSelectors extends AppState {
+  hasForecasts: boolean
 }
 
 const app: AppState = {
@@ -33,5 +37,9 @@ export function reducers (state = app, action: AnyAction) {
 }
 
 export function selectors (state: { app: AppState }) {
-  return cloneDeep(state.app)
+  const current = cloneDeep(state.app)
+  const derived = {
+    hasForecasts: !isEmpty(current.forecasts.list)
+  }
+  return { ...current, ...derived }
 }

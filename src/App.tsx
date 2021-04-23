@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
 import { Container } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { isEmpty } from 'lodash'
 import ForecastService, { ForecastListCancel } from './services/Forecast.service'
-import { actions, selectors, AppState, AppActions } from './App.state'
+import { actions, selectors, AppSelectors, AppActions } from './App.state'
 import Loading from './components/Loading/Loading'
 
-interface AppProps extends AppState, AppActions {}
+interface AppProps extends AppSelectors, AppActions {}
 
 function App (props: AppProps) {
-  const isLoading = isEmpty(props.forecasts.list)
   let cancelListForecast: ForecastListCancel | null = null
   async function listForecast () {
     const [forecasts, cancel] = await ForecastService.list()
@@ -26,7 +24,7 @@ function App (props: AppProps) {
   useEffect(() => { return handleUnmount })
   return (
     <Container maxWidth="md">
-      <Loading visibility={isLoading} />
+      <Loading visibility={!props.hasForecasts} />
     </Container>
   )
 }
