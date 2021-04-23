@@ -6,9 +6,11 @@ interface WeatherData {
   icon: string
 }
 
-interface ForecastData {
+export interface ForecastData {
+  dt: number
   main: {
-    temp: number
+    'temp_min': number
+    'temp_max': number
   }
   weather: WeatherData[]
   'dt_txt': string
