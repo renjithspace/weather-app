@@ -41,9 +41,9 @@ export function reducers (state = alert, action: AnyAction) {
 }
 
 export function selectors (state: { alert: AlertState }): AlertSelectors {
-  const currentState = cloneDeep(state.alert)
-  const selectors = {
+  const current = cloneDeep(state.alert)
+  const derived = {
     isOpen: Boolean(state.alert.message)
   }
-  return { ...currentState, ...selectors }
+  return { ...current, ...derived }
 }
