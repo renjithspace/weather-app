@@ -1,7 +1,8 @@
 import { combineReducers, createStore } from 'redux'
+import { reducers as app } from './App.state'
 
 const reducers = combineReducers({
-  // Register reducers
+  app
 })
 
 export default createStore(reducers)
