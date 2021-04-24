@@ -3,6 +3,7 @@ import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 import { ForecastData } from '../../services/Forecast.service'
 import UtilService from '../../services/UtilService'
 import { Unit } from '../Forecast/Forecast.state'
+import styles from './Weather.module.css'
 
 interface WeatherProps {
   forecast: ForecastData
@@ -40,6 +41,7 @@ export default function Weather (props: WeatherProps) {
             {weather.description}
           </Typography>
           <img
+            className={styles.icon}
             src={icon}
             alt="Current weather icon"/>
           <Typography variant="subtitle2">
