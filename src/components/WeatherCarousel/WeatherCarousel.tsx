@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Grid } from '@material-ui/core'
 import { ForecastData } from '../../services/Forecast.service'
 import { Unit } from '../Forecast/Forecast.state'
+import { NavigateDirection, NavigateHandleCallback } from '../NavigateButton/NavigateButton'
 import Weather from '../Weather/Weather'
+import CarouselNavigator from '../CarouselNavigator/CarouselNavigator'
 
 interface WeatherCarouselProps {
   forecasts: ForecastData[]
   unit: Unit
+  navigators: NavigateDirection[]
+  onNavigate: NavigateHandleCallback
 }
 
 export default function WeatherCarousel (props: WeatherCarouselProps) {
@@ -19,10 +23,15 @@ export default function WeatherCarousel (props: WeatherCarouselProps) {
     )
   }
   return (
-    <Grid
-      container
-      spacing={5}>
-      {props.forecasts.map(renderWeather)}
-    </Grid>
+    <Fragment>
+      <CarouselNavigator
+        onNavigate={props.onNavigate}
+        navigators={props.navigators}/>
+      <Grid
+        container
+        spacing={5}>
+        {props.forecasts.map(renderWeather)}
+      </Grid>
+    </Fragment>
   )
 }
