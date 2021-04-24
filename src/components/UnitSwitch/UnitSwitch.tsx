@@ -31,10 +31,10 @@ export default function UnitSwitch (props: UnitSwitchProps) {
               <Grid item>
                 <FormControlLabel
                   name="unit"
-                  value="celcius"
-                  checked={isChecked('celcius')}
+                  value="celsius"
+                  checked={isChecked('celsius')}
                   control={<Radio onChange={handleChange}/>}
-                  label="Celcius"
+                  label="Celsius"
                   data-testid="celsiusUnit"/>
               </Grid>
               <Grid item>

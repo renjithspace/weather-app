@@ -10,7 +10,7 @@ export default class UtilService {
   static unitSymbol (unit: Unit) {
     const symbols: Record<Unit, string> = {
       fahrenheit: '&#8457;',
-      celcius: '&#8451;'
+      celsius: '&#8451;'
     }
     return symbols[unit]
   }

@@ -27,7 +27,7 @@ describe('UnitSwitch component', () => {
   })
 
   test('Should update checked when unit change', () => {
-    rerender(<UnitSwitch unit="celcius" onChange={handleChange} />)
+    rerender(<UnitSwitch unit="celsius" onChange={handleChange} />)
     const radio = screen.getByTestId('celsiusUnit').querySelector('input')
     expect(radio?.checked).toBeTruthy()
   })
