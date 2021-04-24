@@ -27,9 +27,7 @@ export default function NavigateButton (props: NavigateButtonProps) {
       className={styles.root}
       onClick={handleClick}
       data-testid={testId}>
-      <Box
-        p={1}
-        mt={4}>
+      <Box p={1}>
         <Icon/>
       </Box>
     </Paper>

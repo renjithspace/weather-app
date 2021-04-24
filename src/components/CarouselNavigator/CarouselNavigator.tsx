@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { Box, Grid } from '@material-ui/core'
 import { includes } from 'lodash'
 import NavigateButton,
 {
@@ -19,27 +19,28 @@ export default function CarouselNavigator (props: CarouselNavigatorProps) {
   return (
     <Grid
       container
-      justify="center"
-      spacing={5}>
+      justify="center">
       <Grid
         item
         xs={8}>
-          <Grid
-            container
-            justify="space-between">
-            <Grid item>
+          <Box mb={3}>
+            <Grid
+              container
+              justify="space-between">
+              <Grid item>
+                <NavigateButton
+                  visibility={isVisible('previous')}
+                  direction="previous"
+                  onNavigate={props.onNavigate} />
+              </Grid>
+              <Grid item>
               <NavigateButton
-                visibility={isVisible('previous')}
-                direction="previous"
+                visibility={isVisible('next')}
+                direction="next"
                 onNavigate={props.onNavigate} />
+              </Grid>
             </Grid>
-            <Grid item>
-             <NavigateButton
-              visibility={isVisible('next')}
-              direction="next"
-              onNavigate={props.onNavigate} />
-            </Grid>
-          </Grid>
+          </Box>
         </Grid>
     </Grid>
   )
