@@ -1,5 +1,4 @@
 import { AnyAction } from 'redux'
-import { cloneDeep } from 'lodash'
 
 interface AlertState {
   message: string
@@ -31,17 +30,17 @@ export function reducers (state = alert, action: AnyAction) {
   switch (action.type) {
     case 'REPLACE_ALERT_MESSAGE':
       alert.message = action.message
-      return cloneDeep(alert)
+      return { ...alert }
     case 'CLEAR_ALERT_MESSAGE':
       alert.message = ''
-      return cloneDeep(alert)
+      return { ...alert }
     default:
       return state
   }
 }
 
 export function selectors (state: { alert: AlertState }): AlertSelectors {
-  const current = cloneDeep(state.alert)
+  const current = state.alert
   const derived = {
     isOpen: Boolean(state.alert.message)
   }

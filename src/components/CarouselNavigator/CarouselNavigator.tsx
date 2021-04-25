@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Grid } from '@material-ui/core'
-import { includes } from 'lodash'
 import NavigateButton,
 {
   NavigateDirection,
@@ -14,7 +13,7 @@ interface CarouselNavigatorProps {
 
 export default function CarouselNavigator (props: CarouselNavigatorProps) {
   function isVisible (direction: NavigateDirection) {
-    return includes(props.navigators, direction)
+    return props.navigators.includes(direction)
   }
   return (
     <Grid

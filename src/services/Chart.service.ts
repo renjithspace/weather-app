@@ -1,5 +1,4 @@
 import { ChartConfiguration } from 'chart.js'
-import { map } from 'lodash'
 import { Theme } from '@material-ui/core'
 import { ForecastData } from './Forecast.service'
 import { Unit } from '../components/Forecast/Forecast.state'
@@ -18,10 +17,10 @@ export default class ChartService {
     const title = forecast
       ? UtilService.humanizeDateFromDatetime(forecast.dt_txt)
       : ''
-    const labels = map(segments, segement => {
+    const labels = segments.map(segement => {
       return UtilService.getTimeFromDatetime(segement.dt_txt)
     })
-    const dataset = map(segments, segement => {
+    const dataset = segments.map(segement => {
       return UtilService.averageTemperatureInUnit(segement, unit)
     })
     const data: ChartConfiguration['data'] = {

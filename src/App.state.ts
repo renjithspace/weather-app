@@ -1,5 +1,4 @@
 import { AnyAction } from 'redux'
-import { cloneDeep, isEmpty, map } from 'lodash'
 import { ForecastList } from './services/Forecast.service'
 import UtilService from './services/UtilService'
 
@@ -29,22 +28,23 @@ export const actions: AppActions = {
 
 export function reducers (state = app, action: AnyAction) {
   switch (action.type) {
-    case 'REPLACE_APP_FORECASTS':
-      action.forecasts.list = map(action.forecasts.list, forecast => {
+    case 'REPLACE_APP_FORECASTS': {
+      const { list } = action.forecasts as ForecastList
+      app.forecasts.list = list.map(forecast => {
         forecast.date = UtilService.getDateFromDatetime(forecast.dt_txt)
         return forecast
       })
-      app.forecasts = action.forecasts
-      return cloneDeep(app)
+      return { ...app }
+    }
     default:
       return state
   }
 }
 
 export function selectors (state: { app: AppState }) {
-  const current = cloneDeep(state.app)
+  const current = state.app
   const derived = {
-    hasForecasts: !isEmpty(current.forecasts.list)
+    hasForecasts: Boolean(current.forecasts.list[0])
   }
   return { ...current, ...derived }
 }

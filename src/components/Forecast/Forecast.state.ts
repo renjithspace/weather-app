@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux'
-import { cloneDeep, filter, find, slice, uniqBy } from 'lodash'
+import { uniqBy } from 'lodash'
 import { ForecastData } from '../../services/Forecast.service'
 import { NavigateDirection } from '../NavigateButton/NavigateButton'
 import { ForecastProps } from './Forecast'
@@ -52,16 +52,16 @@ export function reducers (state = forecast, action: AnyAction) {
   switch (action.type) {
     case 'REPLACE_FORECAST_UNIT':
       forecast.unit = action.unit
-      return cloneDeep(forecast)
+      return { ...forecast }
     case 'INCREMENT_FORECAST_PAGE_INDEX':
       forecast.pageIndex = forecast.pageIndex + 1
-      return cloneDeep(forecast)
+      return { ...forecast }
     case 'DECREMENT_FORECAST_PAGE_INDEX':
       forecast.pageIndex = forecast.pageIndex - 1
-      return cloneDeep(forecast)
+      return { ...forecast }
     case 'REPLACE_FORECAST_ACTIVE_FORECAST_DT':
       forecast.activeForecastDt = action.dt
-      return cloneDeep(forecast)
+      return { ...forecast }
     default:
       return state
   }
@@ -69,15 +69,14 @@ export function reducers (state = forecast, action: AnyAction) {
 
 export function selectors (state: { forecast: ForecastState }, props: ForecastProps): ForecastSelectors {
   const carouselSize = 3
-  const current = cloneDeep(state.forecast)
+  const current = state.forecast
   const derived = {
     get dailyForecasts () {
       return uniqBy(props.forecasts, 'date')
     },
     get activeForecasts () {
       const { pageIndex: startIndex } = current
-      const endIndex = startIndex + carouselSize
-      return slice(this.dailyForecasts, startIndex, endIndex)
+      return this.dailyForecasts.splice(startIndex, carouselSize)
     },
     get carouselNavigators () {
       const navigators: NavigateDirection[] = []
@@ -89,12 +88,13 @@ export function selectors (state: { forecast: ForecastState }, props: ForecastPr
     },
     get activeForecast () {
       const { activeForecastDt: dt } = current
-      return find(this.dailyForecasts, { dt }) || null
+      const active = this.dailyForecasts.find(forecast => (forecast.dt === dt))
+      return active || null
     },
     get activeForecastSegments () {
       if (!this.activeForecast) return []
       const date = this.activeForecast.date
-      return filter(props.forecasts, { date })
+      return props.forecasts.filter(forecast => (forecast.date === date))
     }
   }
   return { ...current, ...derived }
