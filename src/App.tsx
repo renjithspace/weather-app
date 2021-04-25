@@ -11,7 +11,7 @@ interface AppProps extends AppSelectors, AppActions {}
 function App (props: AppProps) {
   const children = props.hasForecasts
     ? <Forecast forecasts={props.forecasts.list}/>
-    : <Loading visibility={!props.hasForecasts}/>
+    : <Loading/>
   let cancelListForecast: ForecastListCancel | null = null
   async function listForecast () {
     const [forecasts, cancel] = await ForecastService.list()

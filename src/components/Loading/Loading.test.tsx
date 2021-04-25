@@ -3,18 +3,17 @@ import { RenderResult, screen } from '@testing-library/react'
 import { render } from '../../test-utils'
 import Loading from './Loading'
 
-let rerender: RenderResult['rerender'],
-  unmount: RenderResult['unmount']
+let unmount: RenderResult['unmount']
 beforeEach(() => {
-  const result = render(<Loading visibility={true} />);
-  ({ rerender, unmount } = result)
+  const result = render(<Loading/>);
+  ({ unmount } = result)
 })
 afterEach(() => unmount())
 
 describe('Loading component', () => {
-  test('Should update visibility', () => {
+  test('Should render with loading content', () => {
+    expect(screen.getByAltText('Four bubbles bouncing')).toBeVisible()
     expect(screen.getByText('Loading...')).toBeVisible()
-    rerender(<Loading visibility={false} />)
-    expect(screen.queryByText('Loading...')).toBeNull()
+    expect(screen.getByText(/Please wait./)).toBeVisible()
   })
 })

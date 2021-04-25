@@ -3,13 +3,8 @@ import { Box, Typography } from '@material-ui/core'
 import loadingImage from '../../assets/images/loading.svg'
 import styles from './Loading.module.css'
 
-interface LoadingProps {
-  visibility: boolean
-}
-
-export default function Loading (props: LoadingProps) {
-  const visibility = props.visibility || null
-  return visibility &&
+export default function Loading () {
+  return (
     <div className={styles.root}>
       <Box
         display="flex"
@@ -32,4 +27,5 @@ export default function Loading (props: LoadingProps) {
         </Box>
       </Box>
     </div>
+  )
 }
