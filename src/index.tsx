@@ -6,16 +6,19 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import Provider from './components/Provider/Provider'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 
 // ResizeObserver polyfill https://github.com/chartjs/Chart.js/issues/8414
 install()
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider>
-      <App />
-    </Provider>
-    <CssBaseline/>
+    <ErrorBoundary>
+      <Provider>
+        <App />
+      </Provider>
+      <CssBaseline/>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 )
