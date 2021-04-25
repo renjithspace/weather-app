@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { install } from 'resize-observer'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import Provider from './components/Provider/Provider'
+
+// ResizeObserver polyfill https://github.com/chartjs/Chart.js/issues/8414
+install()
 
 ReactDOM.render(
   <React.StrictMode>
