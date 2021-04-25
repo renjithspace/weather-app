@@ -33,7 +33,7 @@ export default function WeatherCarousel (props: WeatherCarouselProps) {
         navigators={props.navigators}/>
       <Grid
         container
-        spacing={5}>
+        spacing={3}>
         {props.forecasts.map(renderWeather)}
       </Grid>
     </Fragment>
