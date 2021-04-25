@@ -32,6 +32,7 @@ export default function Weather (props: WeatherProps) {
       xs={12}
       sm={4}>
       <Card
+        className={styles.card}
         elevation={elevation}
         onClick={handleClick}>
         <CardContent>
