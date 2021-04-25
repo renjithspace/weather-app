@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux'
 
 interface AlertState {
-  message: string
+  message: string | null
 }
 
 export interface AlertActions {
@@ -14,7 +14,7 @@ export interface AlertSelectors extends AlertState {
 }
 
 const alert: AlertState = {
-  message: ''
+  message: null
 }
 
 export const actions: AlertActions = {
@@ -32,7 +32,7 @@ export function reducers (state = alert, action: AnyAction) {
       alert.message = action.message
       return { ...alert }
     case 'CLEAR_ALERT_MESSAGE':
-      alert.message = ''
+      alert.message = null
       return { ...alert }
     default:
       return state
