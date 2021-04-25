@@ -1,37 +1,43 @@
 import React from 'react'
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
-import { ForecastData } from '../../services/Forecast.service'
+import ForecastService, { ForecastData } from '../../services/Forecast.service'
 import UtilService from '../../services/UtilService'
 import { Unit } from '../Forecast/Forecast.state'
 import styles from './Weather.module.css'
 
+export type WeatherClickHandler = (dt: number) => void
+
 interface WeatherProps {
   forecast: ForecastData
   unit: Unit
+  activeForecastDt: number
+  onClick: WeatherClickHandler
 }
 
 export default function Weather (props: WeatherProps) {
-  const { forecast, unit } = props
+  const { forecast, unit, activeForecastDt } = props
   const weather = forecast.weather[0]
-  const icon = `http://openweathermap.org/img/wn/${weather.icon}.png`
-  const unitSymbol = UtilService.unitSymbol(unit)
+  const iconImage = ForecastService.iconImage(weather.icon)
   const date = UtilService.humanizeDate(forecast.dt_txt)
-  function temperature () {
-    const { temp_min: tempMain, temp_max: tempMax } = forecast.main
-    const average = (tempMain + tempMax) / 2
-    const temperature = UtilService.convertUnit(unit, average)
-    return { __html: `${temperature} ${unitSymbol}` }
+  const averageTemp = UtilService.averageTemperatureInUnit(props.forecast, unit)
+  const temperature = UtilService.withUnit(averageTemp, unit)
+  const isActive = (forecast.dt === activeForecastDt)
+  const elevation = isActive ? 4 : 1
+  function handleClick () {
+    props.onClick(props.forecast.dt)
   }
   return (
     <Grid
       item
       xs={4}>
-      <Card>
+      <Card
+        elevation={elevation}
+        onClick={handleClick}>
         <CardContent>
           <Typography
             variant="h6"
-            color="secondary"
-            dangerouslySetInnerHTML={temperature()}>
+            color="secondary">
+            {temperature}
           </Typography>
           <Typography
             variant="h6">
@@ -42,7 +48,7 @@ export default function Weather (props: WeatherProps) {
           </Typography>
           <img
             className={styles.icon}
-            src={icon}
+            src={iconImage}
             alt="Current weather icon"/>
           <Typography variant="subtitle2">
             {date}

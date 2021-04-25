@@ -14,6 +14,7 @@ export interface ForecastData {
   }
   weather: WeatherData[]
   'dt_txt': string
+  date: string
 }
 
 export interface ForecastList {
@@ -33,5 +34,9 @@ export default class ForecastService {
     const request = new RequestService()
     const response = await request.get(url)
     return [response, request.cancel]
+  }
+
+  static iconImage (icon: WeatherData['icon']) {
+    return `http://openweathermap.org/img/wn/${icon}.png`
   }
 }

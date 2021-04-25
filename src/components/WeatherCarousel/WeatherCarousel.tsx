@@ -3,14 +3,16 @@ import { Grid } from '@material-ui/core'
 import { ForecastData } from '../../services/Forecast.service'
 import { Unit } from '../Forecast/Forecast.state'
 import { NavigateDirection, NavigateHandleCallback } from '../NavigateButton/NavigateButton'
-import Weather from '../Weather/Weather'
+import Weather, { WeatherClickHandler } from '../Weather/Weather'
 import CarouselNavigator from '../CarouselNavigator/CarouselNavigator'
 
 interface WeatherCarouselProps {
   forecasts: ForecastData[]
   unit: Unit
   navigators: NavigateDirection[]
+  activeForecastDt: number
   onNavigate: NavigateHandleCallback
+  onSelect: WeatherClickHandler
 }
 
 export default function WeatherCarousel (props: WeatherCarouselProps) {
@@ -19,6 +21,8 @@ export default function WeatherCarousel (props: WeatherCarouselProps) {
       <Weather
         forecast={forecast}
         unit={props.unit}
+        activeForecastDt={props.activeForecastDt}
+        onClick={props.onSelect}
         key={forecast.dt}/>
     )
   }
