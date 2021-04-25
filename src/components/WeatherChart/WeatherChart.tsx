@@ -25,10 +25,12 @@ export default function WeatherChart (props: WeatherChartProps) {
         <Box my={3}>
           <Card>
             <CardContent>
-              <Bar
-                type="bar"
-                data={data}
-                options={options} />
+              <Box>
+                <Bar
+                  type="bar"
+                  data={data}
+                  options={options} />
+              </Box>
             </CardContent>
           </Card>
         </Box>
