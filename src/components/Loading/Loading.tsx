@@ -18,10 +18,14 @@ export default function Loading () {
           display="flex"
           flexDirection="column"
           alignItems="center">
-          <Typography variant="h6" >
+          <Typography
+            variant="h6"
+            align="center">
             Loading...
           </Typography>
-          <Typography color="textSecondary">
+          <Typography
+            color="textSecondary"
+            align="center">
             Please wait. We are collecting latest weather data.
           </Typography>
         </Box>

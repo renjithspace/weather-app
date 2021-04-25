@@ -29,7 +29,8 @@ export default function Weather (props: WeatherProps) {
   return (
     <Grid
       item
-      xs={4}>
+      xs={12}
+      sm={4}>
       <Card
         elevation={elevation}
         onClick={handleClick}>

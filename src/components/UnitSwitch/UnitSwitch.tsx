@@ -21,7 +21,8 @@ export default function UnitSwitch (props: UnitSwitchProps) {
       justify="center">
       <Grid
         item
-        xs={6}>
+        xs={10}
+        sm={6}>
         <Box my={4}>
           <Paper>
             <Grid
