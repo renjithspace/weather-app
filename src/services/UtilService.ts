@@ -20,10 +20,15 @@ export default class UtilService {
     return moment(date).format('LT')
   }
 
-  static averageTemperatureInUnit (forecast: ForecastData, unit: Unit) {
+  static averageTemperature (forecast: ForecastData, unit: Unit) {
     const { temp_min: tempMin, temp_max: tempMax } = forecast.main
     const average = (tempMin + tempMax) / 2
     return this.convertUnit(unit, average)
+  }
+
+  static averageTemperatureWithUnit (forecast: ForecastData, unit: Unit) {
+    const average = this.averageTemperature(forecast, unit)
+    return this.withUnit(average, unit)
   }
 
   static withUnit (temperature: number, unit: Unit) {

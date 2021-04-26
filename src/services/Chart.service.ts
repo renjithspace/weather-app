@@ -21,7 +21,7 @@ export default class ChartService {
       return UtilService.getTimeFromDatetime(segement.dt_txt)
     })
     const dataset = segments.map(segement => {
-      return UtilService.averageTemperatureInUnit(segement, unit)
+      return UtilService.averageTemperature(segement, unit)
     })
     const data: ChartConfiguration['data'] = {
       labels: labels,

@@ -1,6 +1,6 @@
 import RequestService from './Request.service'
 
-interface WeatherData {
+export interface WeatherData {
   main: string
   description: string
   icon: string

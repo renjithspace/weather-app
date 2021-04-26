@@ -19,12 +19,11 @@ export default function Weather (props: WeatherProps) {
   const weather = forecast.weather[0]
   const iconImage = ForecastService.iconImage(weather.icon)
   const date = UtilService.humanizeDate(forecast.dt_txt)
-  const averageTemp = UtilService.averageTemperatureInUnit(props.forecast, unit)
-  const temperature = UtilService.withUnit(averageTemp, unit)
+  const temperature = UtilService.averageTemperatureWithUnit(forecast, unit)
   const isActive = (forecast.dt === activeForecastDt)
   const elevation = isActive ? 4 : 1
   function handleClick () {
-    props.onClick(props.forecast.dt)
+    props.onClick(forecast.dt)
   }
   return (
     <Grid
@@ -34,15 +33,15 @@ export default function Weather (props: WeatherProps) {
       <Card
         className={styles.card}
         elevation={elevation}
-        onClick={handleClick}>
+        onClick={handleClick}
+        data-testid="weatherCard">
         <CardContent>
           <Typography
             variant="h6"
             color="secondary">
             {temperature}
           </Typography>
-          <Typography
-            variant="h6">
+          <Typography variant="h6">
             {weather.main}
           </Typography>
           <Typography color="textSecondary">
