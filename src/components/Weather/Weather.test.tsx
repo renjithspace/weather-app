@@ -43,8 +43,7 @@ describe('Weather component', () => {
     expect(screen.getByText(weather.description)).toBeVisible()
     expect(
       screen.getByAltText('Current weather icon')
-        .getAttribute('src')
-    ).toBe(iconImage)
+    ).toHaveAttribute('src', iconImage)
     expect(screen.getByText(date)).toBeVisible()
   })
 
@@ -61,9 +60,8 @@ describe('Weather component', () => {
   })
 
   test('Should active forecast based on activeForecastDt', () => {
-    const classList = () => screen.getByTestId('weatherCard').classList
     const activeClass = 'MuiPaper-elevation4'
-    expect(classList().contains(activeClass)).toBeTruthy()
+    expect(screen.getByTestId('weatherCard')).toHaveClass(activeClass)
     const activeForecast = getForecast(1)
     rerender(
       <Weather
@@ -72,7 +70,7 @@ describe('Weather component', () => {
         activeForecastDt={activeForecast.dt}
         onClick={handleClick}/>
     )
-    expect(classList().contains(activeClass)).toBeFalsy()
+    expect(screen.getByTestId('weatherCard')).not.toHaveClass(activeClass)
   })
 
   test('Should handle onClick', () => {

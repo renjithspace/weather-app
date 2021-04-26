@@ -17,18 +17,17 @@ afterEach(() => unmount())
 describe('UnitSwitch component', () => {
   test('Should default unit radio active', () => {
     const radio = screen.getByTestId('fahrenheitUnit').querySelector('input')
-    expect(radio?.checked).toBeTruthy()
+    expect(radio).toBeChecked()
   })
 
   test('Should call change handler when choose', () => {
-    const radio = () => screen.getByTestId('celsiusUnit')
-    fireEvent.click(radio())
+    fireEvent.click(screen.getByTestId('celsiusUnit'))
     expect(handleChange).toHaveBeenCalledTimes(1)
   })
 
   test('Should update checked when unit change', () => {
     rerender(<UnitSwitch unit="celsius" onChange={handleChange} />)
     const radio = screen.getByTestId('celsiusUnit').querySelector('input')
-    expect(radio?.checked).toBeTruthy()
+    expect(radio).toBeChecked()
   })
 })
