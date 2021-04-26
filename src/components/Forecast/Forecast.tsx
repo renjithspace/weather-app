@@ -15,9 +15,6 @@ interface ForecastCombinedProps
   extends ForecastProps, ForecastSelectors, ForecastActions {}
 
 function Forecast (props: ForecastCombinedProps) {
-  const handleUnitChange = useCallback((unit: Unit) => {
-    props.replaceUnit(unit)
-  }, [])
   const weatherChart = (
     props.activeForecast &&
     <WeatherChart
@@ -25,11 +22,14 @@ function Forecast (props: ForecastCombinedProps) {
       segments={props.activeForecastSegments}
       unit={props.unit}/>
   )
-  function handleCarouselNavigate (direction: NavigateDirection) {
+  const handleUnitChange = useCallback((unit: Unit) => {
+    props.replaceUnit(unit)
+  }, [props.replaceUnit])
+  const handleCarouselNavigate = useCallback((direction: NavigateDirection) => {
     (direction === 'next')
       ? props.incrementPageIndex()
       : props.decrementPageIndex()
-  }
+  }, [props.incrementPageIndex, props.decrementPageIndex])
   function handleCarouselSelect (dt: number) {
     props.replaceActiveForecastDt(dt)
   }

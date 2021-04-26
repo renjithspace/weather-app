@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Box, Grid } from '@material-ui/core'
 import NavigateButton,
 {
   NavigateDirection,
   NavigateHandleCallback
 } from '../NavigateButton/NavigateButton'
+import { isEqual } from 'lodash'
 
 interface CarouselNavigatorProps {
   navigators: NavigateDirection[]
   onNavigate: NavigateHandleCallback
 }
 
-export default function CarouselNavigator (props: CarouselNavigatorProps) {
+function CarouselNavigator (props: CarouselNavigatorProps) {
   const { navigators } = props
   const isNextOnlyNavigate = (
     !navigators.includes('previous') &&
@@ -45,3 +46,5 @@ export default function CarouselNavigator (props: CarouselNavigatorProps) {
     </Grid>
   )
 }
+
+export default memo(CarouselNavigator, isEqual)
