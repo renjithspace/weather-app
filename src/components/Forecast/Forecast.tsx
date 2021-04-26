@@ -40,6 +40,7 @@ function Forecast (props: ForecastCombinedProps) {
         onChange={handleUnitChange}/>
       <WeatherCarousel
         forecasts={props.activeForecasts}
+        segments={props.activeForecastsSegments}
         unit={props.unit}
         navigators={props.carouselNavigators}
         activeForecastDt={props.activeForecastDt}

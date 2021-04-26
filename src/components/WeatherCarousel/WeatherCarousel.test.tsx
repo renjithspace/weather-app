@@ -3,9 +3,11 @@ import { fireEvent, RenderResult, screen } from '@testing-library/react'
 import { render } from '../../test-utils'
 import WeatherCarousel from './WeatherCarousel'
 import ForecastService, { ForecastData } from '../../services/Forecast.service'
+import ForecastUtil from '../../utils/Forecast.util'
 
 let unmount: RenderResult['unmount'],
   forecasts: ForecastData[],
+  segments: ForecastData[],
   forecast: ForecastData
 const handleNavigate = jest.fn()
 const handleSelect = jest.fn()
@@ -13,9 +15,11 @@ beforeEach(async () => {
   const [response] = await ForecastService.list()
   forecasts = response as ForecastData[]
   forecast = forecasts[0]
+  segments = ForecastUtil.getSegmentsFromForecast(forecast, forecasts)
   const result = render(
     <WeatherCarousel
       forecasts={forecasts}
+      segments={segments}
       unit="celsius"
       navigators={['next', 'previous']}
       activeForecastDt={forecast.dt}

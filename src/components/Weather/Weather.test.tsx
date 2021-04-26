@@ -8,10 +8,12 @@ import ForecastService,
   WeatherData
 } from '../../services/Forecast.service'
 import UtilService from '../../services/UtilService'
+import ForecastUtil from '../../utils/Forecast.util'
 
 let unmount: RenderResult['unmount'],
   rerender: RenderResult['rerender'],
   forecasts: ForecastData[],
+  segments: ForecastData[],
   forecast :ForecastData,
   weather: WeatherData
 const getForecast = (index: number) => forecasts[index]
@@ -21,10 +23,12 @@ beforeEach(async () => {
   const [response] = await ForecastService.list()
   forecasts = response as ForecastData[]
   forecast = getForecast(0)
+  segments = ForecastUtil.getSegmentsFromForecast(forecast, forecasts)
   weather = getWeather()
   const result = render(
     <Weather
       forecast={forecast}
+      segments={segments}
       unit="celsius"
       activeForecastDt={forecast.dt}
       onClick={handleClick}/>
@@ -35,7 +39,7 @@ afterEach(() => unmount())
 
 describe('Weather component', () => {
   test('Should set forecast data', () => {
-    const temperature = UtilService.averageTemperatureWithUnit(forecast, 'celsius')
+    const temperature = UtilService.averageSegmentTemp(segments, 'celsius')
     const iconImage = ForecastService.iconImage(weather.icon)
     const date = UtilService.humanizeDate(forecast.dt_txt)
     expect(screen.getByText(temperature)).toBeVisible()
@@ -51,11 +55,12 @@ describe('Weather component', () => {
     rerender(
       <Weather
         forecast={forecast}
+        segments={segments}
         unit="fahrenheit"
         activeForecastDt={forecast.dt}
         onClick={handleClick}/>
     )
-    const temp = UtilService.averageTemperatureWithUnit(forecast, 'fahrenheit')
+    const temp = UtilService.averageSegmentTemp(segments, 'fahrenheit')
     expect(screen.getByText(new RegExp(temp))).toBeVisible()
   })
 
@@ -66,6 +71,7 @@ describe('Weather component', () => {
     rerender(
       <Weather
         forecast={forecast}
+        segments={segments}
         unit="fahrenheit"
         activeForecastDt={activeForecast.dt}
         onClick={handleClick}/>

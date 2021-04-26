@@ -26,6 +26,14 @@ export default class UtilService {
     return this.convertUnit(unit, average)
   }
 
+  static averageSegmentTemp (segments: ForecastData[], unit: Unit) {
+    const totalTemp = segments.reduce((temp, segment) => {
+      return temp + this.averageTemperature(segment, unit)
+    }, 0)
+    const averageTemp = round((totalTemp / segments.length))
+    return this.withUnit(averageTemp, unit)
+  }
+
   static averageTemperatureWithUnit (forecast: ForecastData, unit: Unit) {
     const average = this.averageTemperature(forecast, unit)
     return this.withUnit(average, unit)

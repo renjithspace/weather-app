@@ -9,6 +9,7 @@ export type WeatherClickHandler = (dt: number) => void
 
 interface WeatherProps {
   forecast: ForecastData
+  segments: ForecastData[]
   unit: Unit
   activeForecastDt: number
   onClick: WeatherClickHandler
@@ -19,7 +20,7 @@ export default function Weather (props: WeatherProps) {
   const weather = forecast.weather[0]
   const iconImage = ForecastService.iconImage(weather.icon)
   const date = UtilService.humanizeDate(forecast.dt_txt)
-  const temperature = UtilService.averageTemperatureWithUnit(forecast, unit)
+  const temperature = UtilService.averageSegmentTemp(props.segments, unit)
   const isActive = (forecast.dt === activeForecastDt)
   const elevation = isActive ? 4 : 1
   function handleClick () {

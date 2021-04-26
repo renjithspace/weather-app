@@ -3,6 +3,7 @@ import { uniqBy } from 'lodash'
 import { ForecastData } from '../../services/Forecast.service'
 import { NavigateDirection } from '../NavigateButton/NavigateButton'
 import { ForecastProps } from './Forecast'
+import ForecastUtil from '../../utils/Forecast.util'
 
 export type Unit = 'celsius' | 'fahrenheit'
 
@@ -22,6 +23,7 @@ export interface ForecastActions {
 export interface ForecastSelectors extends ForecastState {
   dailyForecasts: ForecastData[]
   activeForecasts: ForecastData[]
+  activeForecastsSegments: ForecastData[]
   carouselNavigators: NavigateDirection[]
   activeForecast: ForecastData | null
   activeForecastSegments: ForecastData[]
@@ -78,6 +80,9 @@ export function selectors (state: { forecast: ForecastState }, props: ForecastPr
       const { pageIndex: startIndex } = current
       return this.dailyForecasts.splice(startIndex, carouselSize)
     },
+    get activeForecastsSegments () {
+      return ForecastUtil.getSegmentsFromForecasts(this.activeForecasts, props.forecasts)
+    },
     get carouselNavigators () {
       const navigators: NavigateDirection[] = []
       const canPrevious = current.pageIndex > 0
@@ -93,8 +98,7 @@ export function selectors (state: { forecast: ForecastState }, props: ForecastPr
     },
     get activeForecastSegments () {
       if (!this.activeForecast) return []
-      const date = this.activeForecast.date
-      return props.forecasts.filter(forecast => (forecast.date === date))
+      return ForecastUtil.getSegmentsFromForecast(this.activeForecast, props.forecasts)
     }
   }
   return { ...current, ...derived }
