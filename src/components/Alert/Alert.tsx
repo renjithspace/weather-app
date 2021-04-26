@@ -23,7 +23,8 @@ function Alert (props: AlertProps) {
           onClick={handleClose}>
           <Close fontSize="small" />
         </IconButton>}
-      onClose={handleClose}/>
+      onClose={handleClose}
+      data-testid="alert"/>
   )
 }
 
