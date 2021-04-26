@@ -23,7 +23,7 @@ export default function WeatherChart (props: WeatherChartProps) {
         item
         xs={12}>
         <Box my={3}>
-          <Card>
+          <Card data-testid="weatherChart">
             <CardContent>
               <Box>
                 <Bar

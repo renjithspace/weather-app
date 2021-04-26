@@ -24,7 +24,7 @@ export default function UnitSwitch (props: UnitSwitchProps) {
         xs={10}
         sm={6}>
         <Box my={4}>
-          <Paper>
+          <Paper data-testid="unitSwitch">
             <Grid
               container
               justify="center"
