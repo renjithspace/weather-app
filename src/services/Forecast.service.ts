@@ -22,7 +22,7 @@ type ForecastListResult = [ForecastData[] | null, ForecastListCancel]
 
 export default class ForecastService {
   static async list (): Promise<ForecastListResult> {
-    const endpoint = 'http://api.openweathermap.org/data/2.5/forecast'
+    const endpoint = 'https://api.openweathermap.org/data/2.5/forecast'
     const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY
     const location = process.env.REACT_APP_OPENWEATHER_LOCATION
     const days = 40
