@@ -8,13 +8,11 @@ export type NavigateDirection = 'next' | 'previous'
 export type NavigateHandleCallback = (direction: NavigateDirection) => void
 
 interface NavigateButtonProps {
-  visibility: boolean
   direction: NavigateDirection
   onNavigate: NavigateHandleCallback
 }
 
 export default function NavigateButton (props: NavigateButtonProps) {
-  const visibility = props.visibility || null
   const testId = `button${capitalize(props.direction)}`
   const Icon = (props.direction === 'previous')
     ? NavigateBeforeOutlined
@@ -22,7 +20,7 @@ export default function NavigateButton (props: NavigateButtonProps) {
   function handleClick () {
     props.onNavigate(props.direction)
   }
-  return visibility &&
+  return (
     <Paper
       className={styles.root}
       onClick={handleClick}
@@ -31,4 +29,5 @@ export default function NavigateButton (props: NavigateButtonProps) {
         <Icon/>
       </Box>
     </Paper>
+  )
 }

@@ -9,7 +9,6 @@ const handleNavigate = jest.fn()
 beforeEach(() => {
   const result = render(
     <NavigateButton
-      visibility={true}
       direction="next"
       onNavigate={handleNavigate}/>
   );
@@ -18,21 +17,10 @@ beforeEach(() => {
 afterEach(() => unmount())
 
 describe('NavigateButton component', () => {
-  test('Should set visiblity', () => {
+  test('Should set direction', () => {
     expect(screen.getByTestId('buttonNext')).toBeVisible()
     rerender(
       <NavigateButton
-        visibility={false}
-        direction="next"
-        onNavigate={handleNavigate}/>
-    )
-    expect(screen.queryByTestId('buttonNext')).toBeNull()
-  })
-
-  test('Should set direction', () => {
-    rerender(
-      <NavigateButton
-        visibility={true}
         direction="previous"
         onNavigate={handleNavigate}/>
     )

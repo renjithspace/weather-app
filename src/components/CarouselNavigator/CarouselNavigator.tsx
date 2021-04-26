@@ -12,9 +12,21 @@ interface CarouselNavigatorProps {
 }
 
 export default function CarouselNavigator (props: CarouselNavigatorProps) {
-  function isVisible (direction: NavigateDirection) {
-    return props.navigators.includes(direction)
-  }
+  const { navigators } = props
+  const isNextOnlyNavigate = (
+    !navigators.includes('previous') &&
+    navigators.includes('next')
+  )
+  const justifyButtons = isNextOnlyNavigate ? 'flex-end' : 'space-between'
+  const navigateButtons = navigators.map(navigator => (
+    <Grid
+      item
+      key={navigator}>
+      <NavigateButton
+        direction={navigator}
+        onNavigate={props.onNavigate} />
+    </Grid>
+  ))
   return (
     <Grid
       container
@@ -22,25 +34,14 @@ export default function CarouselNavigator (props: CarouselNavigatorProps) {
       <Grid
         item
         xs={8}>
-          <Box mb={3}>
-            <Grid
-              container
-              justify="space-between">
-              <Grid item>
-                <NavigateButton
-                  visibility={isVisible('previous')}
-                  direction="previous"
-                  onNavigate={props.onNavigate} />
-              </Grid>
-              <Grid item>
-              <NavigateButton
-                visibility={isVisible('next')}
-                direction="next"
-                onNavigate={props.onNavigate} />
-              </Grid>
-            </Grid>
-          </Box>
-        </Grid>
+        <Box mb={3}>
+          <Grid
+            container
+            justify={justifyButtons}>
+            {navigateButtons}
+          </Grid>
+        </Box>
+      </Grid>
     </Grid>
   )
 }
