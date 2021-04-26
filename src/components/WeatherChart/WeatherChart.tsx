@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Box, Card, CardContent, Grid } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 import { Bar } from 'react-chartjs-2'
+import { isEqual } from 'lodash'
 import { Unit } from '../Forecast/Forecast.state'
 import { ForecastData } from '../../services/Forecast.service'
 import ChartService, { WeatherChartConfig } from '../../services/Chart.service'
 
 interface WeatherChartProps {
-  forecast: ForecastData | null
+  forecast: ForecastData
   segments: ForecastData[]
   unit: Unit
 }
 
-export default function WeatherChart (props: WeatherChartProps) {
+function WeatherChart (props: WeatherChartProps) {
   const { forecast, segments, unit } = props
   const theme = useTheme()
   const config: WeatherChartConfig = { forecast, segments, unit, theme }
@@ -38,3 +39,5 @@ export default function WeatherChart (props: WeatherChartProps) {
     </Grid>
   )
 }
+
+export default memo(WeatherChart, isEqual)

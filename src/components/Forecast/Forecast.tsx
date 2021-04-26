@@ -18,6 +18,13 @@ function Forecast (props: ForecastCombinedProps) {
   const handleUnitChange = useCallback((unit: Unit) => {
     props.replaceUnit(unit)
   }, [])
+  const weatherChart = (
+    props.activeForecast &&
+    <WeatherChart
+      forecast={props.activeForecast}
+      segments={props.activeForecastSegments}
+      unit={props.unit}/>
+  )
   function handleCarouselNavigate (direction: NavigateDirection) {
     (direction === 'next')
       ? props.incrementPageIndex()
@@ -46,10 +53,7 @@ function Forecast (props: ForecastCombinedProps) {
         activeForecastDt={props.activeForecastDt}
         onNavigate={handleCarouselNavigate}
         onSelect={handleCarouselSelect}/>
-      <WeatherChart
-        forecast={props.activeForecast}
-        segments={props.activeForecastSegments}
-        unit={props.unit}/>
+        {weatherChart}
     </Fragment>
   )
 }
