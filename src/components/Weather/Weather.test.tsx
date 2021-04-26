@@ -41,7 +41,7 @@ describe('Weather component', () => {
   test('Should set forecast data', () => {
     const temperature = UtilService.averageSegmentTemp(segments, 'celsius')
     const iconImage = ForecastService.iconImage(weather.icon)
-    const date = UtilService.humanizeDate(forecast.dt_txt)
+    const date = UtilService.humanizeDateFromDatetime(forecast.dt_txt)
     expect(screen.getByText(temperature)).toBeVisible()
     expect(screen.getByText(weather.main)).toBeVisible()
     expect(screen.getByText(weather.description)).toBeVisible()

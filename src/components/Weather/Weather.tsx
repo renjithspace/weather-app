@@ -19,7 +19,7 @@ export default function Weather (props: WeatherProps) {
   const { forecast, unit, activeForecastDt } = props
   const weather = forecast.weather[0]
   const iconImage = ForecastService.iconImage(weather.icon)
-  const date = UtilService.humanizeDate(forecast.dt_txt)
+  const date = UtilService.humanizeDateFromDatetime(forecast.dt_txt)
   const temperature = UtilService.averageSegmentTemp(props.segments, unit)
   const isActive = (forecast.dt === activeForecastDt)
   const elevation = isActive ? 4 : 1

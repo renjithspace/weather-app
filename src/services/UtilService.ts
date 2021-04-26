@@ -4,10 +4,6 @@ import { Unit } from '../components/Forecast/Forecast.state'
 import { ForecastData } from './Forecast.service'
 
 export default class UtilService {
-  static humanizeDate (date: string) {
-    return moment(date).format('LLL')
-  }
-
   static getDateFromDatetime (date: string) {
     return moment(date).format('L')
   }
