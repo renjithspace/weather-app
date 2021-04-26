@@ -5,21 +5,21 @@ import Weather from './Weather'
 import ForecastService,
 {
   ForecastData,
-  ForecastList,
   WeatherData
 } from '../../services/Forecast.service'
 import UtilService from '../../services/UtilService'
 
 let unmount: RenderResult['unmount'],
   rerender: RenderResult['rerender'],
-  forecasts: ForecastList | null,
+  forecasts: ForecastData[],
   forecast :ForecastData,
   weather: WeatherData
-const getForecast = (index: number) => forecasts?.list[index]!
+const getForecast = (index: number) => forecasts[index]
 const getWeather = () => forecast.weather[0]
 const handleClick = jest.fn()
 beforeEach(async () => {
-  [forecasts] = await ForecastService.list()
+  const [response] = await ForecastService.list()
+  forecasts = response as ForecastData[]
   forecast = getForecast(0)
   weather = getWeather()
   const result = render(

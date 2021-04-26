@@ -17,12 +17,8 @@ export interface ForecastData {
   date: string
 }
 
-export interface ForecastList {
-  list: ForecastData[]
-}
-
 export type ForecastListCancel = () => void
-type ForecastListResult = [ForecastList | null, ForecastListCancel]
+type ForecastListResult = [ForecastData[] | null, ForecastListCancel]
 
 export default class ForecastService {
   static async list (): Promise<ForecastListResult> {
@@ -33,7 +29,8 @@ export default class ForecastService {
     const url = `${endpoint}?q=${location}&APPID=${apiKey}&cnt=${days}&units=imperial`
     const request = new RequestService()
     const response = await request.get(url)
-    return [response, request.cancel]
+    const result = response ? response.list : []
+    return [result, request.cancel]
   }
 
   static iconImage (icon: WeatherData['icon']) {

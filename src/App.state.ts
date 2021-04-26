@@ -1,13 +1,13 @@
 import { AnyAction } from 'redux'
-import { ForecastList } from './services/Forecast.service'
+import { ForecastData } from './services/Forecast.service'
 import UtilService from './services/UtilService'
 
 interface AppState {
-  forecasts: ForecastList
+  forecasts: ForecastData[]
 }
 
 export interface AppActions {
-  replaceForecasts (forecasts: ForecastList): AnyAction
+  replaceForecasts (forecasts: ForecastData[]): AnyAction
 }
 
 export interface AppSelectors extends AppState {
@@ -15,9 +15,7 @@ export interface AppSelectors extends AppState {
 }
 
 const app: AppState = {
-  forecasts: {
-    list: []
-  }
+  forecasts: []
 }
 
 export const actions: AppActions = {
@@ -29,8 +27,8 @@ export const actions: AppActions = {
 export function reducers (state = app, action: AnyAction) {
   switch (action.type) {
     case 'REPLACE_APP_FORECASTS': {
-      const { list } = action.forecasts as ForecastList
-      app.forecasts.list = list.map(forecast => {
+      const forecasts = action.forecasts as ForecastData[]
+      app.forecasts = forecasts.map(forecast => {
         forecast.date = UtilService.getDateFromDatetime(forecast.dt_txt)
         return forecast
       })
@@ -44,7 +42,7 @@ export function reducers (state = app, action: AnyAction) {
 export function selectors (state: { app: AppState }) {
   const current = state.app
   const derived = {
-    hasForecasts: Boolean(current.forecasts.list[0])
+    hasForecasts: Boolean(current.forecasts[0])
   }
   return { ...current, ...derived }
 }

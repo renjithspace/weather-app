@@ -10,8 +10,8 @@ let unmount: RenderResult['unmount'],
 const handleNavigate = jest.fn()
 const handleSelect = jest.fn()
 beforeEach(async () => {
-  const [forecastList] = await ForecastService.list()
-  forecasts = forecastList?.list!
+  const [response] = await ForecastService.list()
+  forecasts = response as ForecastData[]
   forecast = forecasts[0]
   const result = render(
     <WeatherCarousel

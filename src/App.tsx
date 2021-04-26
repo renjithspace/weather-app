@@ -11,7 +11,7 @@ interface AppProps extends AppSelectors, AppActions {}
 
 function App (props: AppProps) {
   const children = props.hasForecasts
-    ? <Forecast forecasts={props.forecasts.list}/>
+    ? <Forecast forecasts={props.forecasts}/>
     : <Loading/>
   let cancelListForecast: ForecastListCancel | null = null
   async function listForecast () {

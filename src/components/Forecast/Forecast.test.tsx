@@ -1,13 +1,13 @@
 import React from 'react'
 import { RenderResult, screen } from '@testing-library/react'
 import { render } from '../../test-utils'
-import ForecastService from '../../services/Forecast.service'
+import ForecastService, { ForecastData } from '../../services/Forecast.service'
 import Forecast from './Forecast'
 
 let unmount: RenderResult['unmount']
 beforeEach(async () => {
-  const forecastList = await ForecastService.list()
-  const forecasts = forecastList[0]?.list!
+  const [response] = await ForecastService.list()
+  const forecasts = response as ForecastData[]
   const result = render(<Forecast forecasts={forecasts}/>);
   ({ unmount } = result)
 })
