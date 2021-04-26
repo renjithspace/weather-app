@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { ForecastData } from '../../services/Forecast.service'
 import { Unit, ForecastActions, ForecastSelectors, selectors, actions } from './Forecast.state'
@@ -15,9 +15,9 @@ interface ForecastCombinedProps
   extends ForecastProps, ForecastSelectors, ForecastActions {}
 
 function Forecast (props: ForecastCombinedProps) {
-  function handleUnitChange (unit: Unit) {
+  const handleUnitChange = useCallback((unit: Unit) => {
     props.replaceUnit(unit)
-  }
+  }, [])
   function handleCarouselNavigate (direction: NavigateDirection) {
     (direction === 'next')
       ? props.incrementPageIndex()

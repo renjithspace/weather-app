@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, memo } from 'react'
 import { Box, FormControlLabel, Grid, Paper, Radio } from '@material-ui/core'
 import { Unit } from '../Forecast/Forecast.state'
 
@@ -7,7 +7,7 @@ interface UnitSwitchProps {
   onChange: (unit: Unit) => void
 }
 
-export default function UnitSwitch (props: UnitSwitchProps) {
+function UnitSwitch (props: UnitSwitchProps) {
   function handleChange (event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value as Unit
     props.onChange(value)
@@ -54,3 +54,5 @@ export default function UnitSwitch (props: UnitSwitchProps) {
     </Grid>
   )
 }
+
+export default memo(UnitSwitch)
