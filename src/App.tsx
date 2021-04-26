@@ -5,6 +5,7 @@ import ForecastService, { ForecastListCancel } from './services/Forecast.service
 import { actions, selectors, AppSelectors, AppActions } from './App.state'
 import Loading from './components/Loading/Loading'
 import Forecast from './components/Forecast/Forecast'
+import Alert from './components/Alert/Alert'
 
 interface AppProps extends AppSelectors, AppActions {}
 
@@ -26,7 +27,12 @@ function App (props: AppProps) {
       if (cancelListForecast) cancelListForecast()
     }
   })
-  return <Container maxWidth="md">{children}</Container>
+  return (
+    <Container maxWidth="md">
+      {children}
+      <Alert/>
+    </Container>
+  )
 }
 
 export default connect(selectors, actions)(App)

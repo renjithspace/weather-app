@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { screen, RenderResult } from '@testing-library/react'
 import { render } from '../../test-utils'
 import AlertService from '../../services/Alert.service'
+import App from '../../App'
 
 let unmount: RenderResult['unmount']
 beforeEach(() => {
-  const result = render(<Fragment/>);
+  const result = render(<App/>);
   ({ unmount } = result)
 })
 afterEach(() => unmount())
