@@ -19,7 +19,7 @@ interface WeatherCarouselProps {
 
 export default function WeatherCarousel (props: WeatherCarouselProps) {
   function renderWeather (forecast: ForecastData) {
-    const segments = ForecastUtil.getSegmentsFromForecast(forecast, props.segments)
+    const segments = ForecastUtil.segmentsFromForecast(forecast, props.segments)
     return (
       <Weather
         forecast={forecast}

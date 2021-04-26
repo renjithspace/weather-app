@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 import { ForecastData } from './services/Forecast.service'
-import UtilService from './services/UtilService'
+import DateUtil from './utils/Date.utils'
 
 interface AppState {
   forecasts: ForecastData[]
@@ -29,7 +29,7 @@ export function reducers (state = app, action: AnyAction) {
     case 'REPLACE_APP_FORECASTS': {
       const forecasts = action.forecasts as ForecastData[]
       app.forecasts = forecasts.map(forecast => {
-        forecast.date = UtilService.getDateFromDatetime(forecast.dt_txt)
+        forecast.date = DateUtil.dateFromDatetime(forecast.dt_txt)
         return forecast
       })
       return { ...app }

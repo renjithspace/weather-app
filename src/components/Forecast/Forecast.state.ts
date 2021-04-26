@@ -81,7 +81,7 @@ export function selectors (state: { forecast: ForecastState }, props: ForecastPr
       return this.dailyForecasts.splice(startIndex, carouselSize)
     },
     get activeForecastsSegments () {
-      return ForecastUtil.getSegmentsFromForecasts(this.activeForecasts, props.forecasts)
+      return ForecastUtil.segmentsFromForecasts(this.activeForecasts, props.forecasts)
     },
     get carouselNavigators () {
       const navigators: NavigateDirection[] = []
@@ -98,7 +98,7 @@ export function selectors (state: { forecast: ForecastState }, props: ForecastPr
     },
     get activeForecastSegments () {
       if (!this.activeForecast) return []
-      return ForecastUtil.getSegmentsFromForecast(this.activeForecast, props.forecasts)
+      return ForecastUtil.segmentsFromForecast(this.activeForecast, props.forecasts)
     }
   }
   return { ...current, ...derived }

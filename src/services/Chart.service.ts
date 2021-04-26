@@ -2,7 +2,8 @@ import { ChartConfiguration } from 'chart.js'
 import { Theme } from '@material-ui/core'
 import { ForecastData } from './Forecast.service'
 import { Unit } from '../components/Forecast/Forecast.state'
-import UtilService from './UtilService'
+import DateUtil from '../utils/Date.utils'
+import TemperatureUtil from '../utils/Temperature.util'
 
 export interface WeatherChartConfig {
   forecast: ForecastData | null
@@ -15,13 +16,13 @@ export default class ChartService {
   static weatherChart (config: WeatherChartConfig) {
     const { forecast, segments, unit, theme } = config
     const title = forecast
-      ? UtilService.humanizeDateFromDatetime(forecast.dt_txt)
+      ? DateUtil.dateFromDatetime(forecast.dt_txt)
       : ''
     const labels = segments.map(segement => {
-      return UtilService.getTimeFromDatetime(segement.dt_txt)
+      return DateUtil.timeFromDatetime(segement.dt_txt)
     })
     const dataset = segments.map(segement => {
-      return UtilService.averageTemperature(segement, unit)
+      return TemperatureUtil.averageForecastTemp(segement, unit)
     })
     const data: ChartConfiguration['data'] = {
       labels: labels,
@@ -40,7 +41,7 @@ export default class ChartService {
           callbacks: {
             label (this, tooltipItems: any) {
               const { dataset, formattedValue } = tooltipItems
-              const temperature = UtilService.withUnit(formattedValue, unit)
+              const temperature = TemperatureUtil.withUnit(formattedValue, unit)
               return `${dataset.label}: ${temperature}`
             }
           }

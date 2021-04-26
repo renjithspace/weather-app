@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, CardContent, Grid, Typography } from '@material-ui/core'
 import ForecastService, { ForecastData } from '../../services/Forecast.service'
-import UtilService from '../../services/UtilService'
 import { Unit } from '../Forecast/Forecast.state'
+import DateUtil from '../../utils/Date.utils'
+import TemperatureUtil from '../../utils/Temperature.util'
 import styles from './Weather.module.css'
 
 export type WeatherClickHandler = (dt: number) => void
@@ -19,8 +20,8 @@ export default function Weather (props: WeatherProps) {
   const { forecast, unit, activeForecastDt } = props
   const weather = forecast.weather[0]
   const iconImage = ForecastService.iconImage(weather.icon)
-  const date = UtilService.humanizeDateFromDatetime(forecast.dt_txt)
-  const temperature = UtilService.averageSegmentTemp(props.segments, unit)
+  const date = DateUtil.dateFromDatetime(forecast.dt_txt)
+  const temperature = TemperatureUtil.averageSegmentTemp(props.segments, unit)
   const isActive = (forecast.dt === activeForecastDt)
   const elevation = isActive ? 4 : 1
   function handleClick () {

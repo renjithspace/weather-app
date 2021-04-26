@@ -15,7 +15,7 @@ beforeEach(async () => {
   const [response] = await ForecastService.list()
   forecasts = response as ForecastData[]
   forecast = forecasts[0]
-  segments = ForecastUtil.getSegmentsFromForecast(forecast, forecasts)
+  segments = ForecastUtil.segmentsFromForecast(forecast, forecasts)
   const result = render(
     <WeatherCarousel
       forecasts={forecasts}

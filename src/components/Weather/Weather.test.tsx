@@ -7,8 +7,9 @@ import ForecastService,
   ForecastData,
   WeatherData
 } from '../../services/Forecast.service'
-import UtilService from '../../services/UtilService'
 import ForecastUtil from '../../utils/Forecast.util'
+import DateUtil from '../../utils/Date.utils'
+import TemperatureUtil from '../../utils/Temperature.util'
 
 let unmount: RenderResult['unmount'],
   rerender: RenderResult['rerender'],
@@ -23,7 +24,7 @@ beforeEach(async () => {
   const [response] = await ForecastService.list()
   forecasts = response as ForecastData[]
   forecast = getForecast(0)
-  segments = ForecastUtil.getSegmentsFromForecast(forecast, forecasts)
+  segments = ForecastUtil.segmentsFromForecast(forecast, forecasts)
   weather = getWeather()
   const result = render(
     <Weather
@@ -39,9 +40,9 @@ afterEach(() => unmount())
 
 describe('Weather component', () => {
   test('Should set forecast data', () => {
-    const temperature = UtilService.averageSegmentTemp(segments, 'celsius')
+    const temperature = TemperatureUtil.averageSegmentTemp(segments, 'celsius')
     const iconImage = ForecastService.iconImage(weather.icon)
-    const date = UtilService.humanizeDateFromDatetime(forecast.dt_txt)
+    const date = DateUtil.dateFromDatetime(forecast.dt_txt)
     expect(screen.getByText(temperature)).toBeVisible()
     expect(screen.getByText(weather.main)).toBeVisible()
     expect(screen.getByText(weather.description)).toBeVisible()
@@ -60,7 +61,7 @@ describe('Weather component', () => {
         activeForecastDt={forecast.dt}
         onClick={handleClick}/>
     )
-    const temp = UtilService.averageSegmentTemp(segments, 'fahrenheit')
+    const temp = TemperatureUtil.averageSegmentTemp(segments, 'fahrenheit')
     expect(screen.getByText(new RegExp(temp))).toBeVisible()
   })
 

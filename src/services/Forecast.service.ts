@@ -14,7 +14,7 @@ export interface ForecastData {
   }
   weather: WeatherData[]
   'dt_txt': string
-  date: string
+  date?: string
 }
 
 export type ForecastListCancel = () => void
