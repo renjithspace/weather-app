@@ -10,8 +10,11 @@ import Alert from './components/Alert/Alert'
 interface AppProps extends AppSelectors, AppActions {}
 
 function App (props: AppProps) {
+  function handleRefreshClick () {
+    listForecast()
+  }
   const children = props.hasForecasts
-    ? <Forecast forecasts={props.forecasts}/>
+    ? <Forecast forecasts={props.forecasts} onRefresh={handleRefreshClick} />
     : <Loading/>
   let cancelListForecast: ForecastListCancel | null = null
   async function listForecast () {

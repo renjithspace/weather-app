@@ -6,9 +6,11 @@ import { NavigateDirection } from '../NavigateButton/NavigateButton'
 import UnitSwitch from '../UnitSwitch/UnitSwitch'
 import WeatherCarousel from '../WeatherCarousel/WeatherCarousel'
 import WeatherChart from '../WeatherChart/WeatherChart'
+import { Button, Grid } from '@material-ui/core'
 
 export interface ForecastProps {
   forecasts: ForecastData[]
+  onRefresh: () => void
 }
 
 interface ForecastCombinedProps
@@ -40,11 +42,24 @@ function Forecast (props: ForecastCombinedProps) {
   useEffect(() => {
     setDefaultActiveForcast()
   }, [])
+  console.log('Forecast')
   return (
     <Fragment>
-      <UnitSwitch
-        unit={props.unit}
-        onChange={handleUnitChange}/>
+      <Grid container justify="space-between" alignItems="center">
+          <Grid xs={7} item>
+            <UnitSwitch
+              unit={props.unit}
+              onChange={handleUnitChange}/>
+          </Grid>
+          <Grid xs={5} item>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={props.onRefresh}>
+            Refresh
+          </Button>
+          </Grid>
+        </Grid>
       <WeatherCarousel
         forecasts={props.activeForecasts}
         segments={props.activeForecastsSegments}
